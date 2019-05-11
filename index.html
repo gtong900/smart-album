@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Providing album and search service via text or voice.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <link rel="stylesheet" href="index.css">
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    
+</head>
+
+<body onload="intiAWS();">
+    <div id='bodybox'>
+        <center><img id='logo' src="img/mealbot.png" align="middle"></center>
+        <div id='chatborder'>
+                <p id="chatlog7" class="chatlog">&nbsp;</p>
+                <p id="chatlog6" class="chatlog">&nbsp;</p>
+                <p id="chatlog5" class="chatlog">&nbsp;</p>
+                <p id="chatlog4" class="chatlog">&nbsp;</p>
+                <p id="chatlog3" class="chatlog">&nbsp;</p>
+                <p id="chatlog2" class="chatlog">&nbsp;</p>
+                <p id="chatlog1" class="chatlog">&nbsp;</p>
+                <input type="text" class="input-field" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me."/>
+                <hr/>
+                <div>
+                    <button type="button" class="btn btn-primary" id='voice' data-toggle="modal" data-target="#voiceModal">Voice Input</button>
+                    <!-- Upload Photo Modal -->
+                    <div class="modal fade" id="voiceModal" role="dialog">
+                        <div class="modal-dialog">
+                            
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Recording...</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <center>
+                                        <button type="button" class="btn btn-outline-info" data-dismiss="modal" onclick="endrecord()">Stop and submit</button>
+                                        <audio id="recordedAudio" controls="false" hidden="true"></audio>
+                                    </center>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" id='upload' data-toggle="modal" data-target="#uploadModal">Upload Image</button>
+                    <!-- Upload Photo Modal -->
+                    <div class="modal fade" id="uploadModal" role="dialog">
+                        <div class="modal-dialog">
+                    
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Upload file from local</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <input type="file" class="form-control-file" id="FormControlFile1" onchange="uploadFile(event)" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <center>
+            <p>Powered by AWS Lex, S3, Lambda, Cognito, API Gateway and Yelp API</p>
+            <p>Contact: ty936@nyu.edu, birdsdule@gmail.com</p>
+            <p><a href="https://github.com/gtong900/MealBot" target="_blank">Github Repository</a></p>
+        </center>
+    </div>
+    <!-- Search Result Modal -->
+    <div class="modal fade bd-example-modal-lg" id="resultModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+    
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Searching results from the album:</h4>
+                </div>
+                <div class="modal-body" id="gallery">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="apigClient.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.422.0.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
